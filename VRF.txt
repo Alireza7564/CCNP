@@ -1,0 +1,15 @@
+--ip vrf ?
+-- int ? > ip vrf forwarding ?
+
+
+-- vrf defination ? > address-family ipv4/6 
+-- int ?> vrf forwarding ?
+
+
+to give access throw vrfs & make them reachable by each other:
+
+--vrf ? > Route-Replication from Vrf ? U all
+
+to create routes in vrf
+
+ip route vrf ? --ip--  --mask-- --next hop--

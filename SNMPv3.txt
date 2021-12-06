@@ -1,0 +1,2 @@
+--snmp-server group ? v3 priv
+	snmp-server user -X- -groupname- v3 auth -sha- -pass- priv -aes- -128- -key- access -acl-

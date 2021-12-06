@@ -1,0 +1,5 @@
+-- ip sla ? > icmp-echo -dest ip- -src ip or int- > fre -sec-
+-- ip sla schedule ? start -now- life -for ever-
+
+-- ip sla ? > udp-jitter -dest ip- -port- control enable/disable
+enable is for testing not real network

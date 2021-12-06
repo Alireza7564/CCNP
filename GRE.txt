@@ -1,0 +1,12 @@
+--int tunnel ?
+	> tunnel source --ip-- (source Wan Public ip)
+	> tunnel destination --ip-- (destination Wan Public ip)
+	> ip address --ip-- --mask--
+	> ip tcp adjust-mss 1400
+	> keepalive 10 3
+	> ip mtu ?1400
+	> bandwidth ?
+& for routing 
+--ip route ip mask (nexthop: tunnel ip address)
+
+bandwidth will affect routing protocols to prefer tunnel or not 
