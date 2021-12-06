@@ -1,0 +1,14 @@
+--int ? > standby ? ip ????
+	standby ? authentication md5 pass
+	standby ? priority
+	standby ? preempt
+	standby ? timer hellosec holdsec
+exept priority all other commands need to be enter exactly same on every HSRP gateway
+we can use vlan as int to have instance of HSRP for every vlan
+active GW must be STP rootbridge
+
+to control decrement of active & stand by automaticaly
+--track ? int ? ip routing reachability
+--int? > standby ? track ? decrement xvalue
+if preempt was defined, after tracks goes down priority decrease by xvalue and will increase after track comes up
+
