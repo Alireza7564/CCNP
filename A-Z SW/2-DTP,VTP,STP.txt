@@ -1,0 +1,24 @@
+conf t
+int ra gig 1/0/1-24
+sw nonego
+vtp domain ???
+vtp ver 3
+vtp mode off/transparent
+vtp password 123456 hidden
+spanning-tree mode rapid-pvst
+spanning-tree portfast default
+spanning-tree portfast bpduguard
+UDLD enable
+int gig 1/0/24
+udld enable aggr
+
+in core sw on every port we should set rootgaurd
+spanning-tree guard root
+
+in case of useing trusted trunks like APs
+spanning-tree portfast trunk
+
+in case of choosing a sw as Root-bridge
+spanning-tree cost 0
+spanning-tree vlan ? cost
+spanning-tree vlan ? port-prio ?
