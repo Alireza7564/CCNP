@@ -1,0 +1,45 @@
+in this mode we need to maintaine gre tunnel first
+1)phase 1 bidirectional tunnel
+conf t
+	crypto isakamp policy ?>5
+		authenti ?
+		hash ?
+		encryp ?
+		group	?>14
+conf t
+	crypto iskamp key -pass- address ???=who can use this pass to negotiate ipsec as a new peer 
+						if it sets to 0.0.0.0 means all ip address must use this pass
+2)phase 2 transform set ipsec
+conf t
+	crypto ipsec transform-set ?? ESP/AH
+	example: crypto ipsec transform-set T-set esp-aes 192 esp-sha256-hmac   those who has hm,ac at the end are authentication types
+	-----and then we should choose ipsec operation mode-----
+		>> mode transport
+3)creat ACL
+conf t
+	ip access-list ext ???  in old ipsec config we should make a acl that determined which traffics must encryptrd throw ipsec 
+		permit ip any any  = this means any traffic ,ust be encapsulated with ipsec
+
+4)crypto map setup
+conf t
+	crypto map name number value
+	example = crypto map C-map 10 ipsec-isakmp
+		match addr -ACL in step 3-
+		set peer tunnel ip address = we can use this as much as we need to set more than 1 peer
+		set transform-set -t-set in step 2-
+
+5) set crypto map under tunnel or int
+conf t
+	int tunnel 1
+		crypto map -c-map name in step 4-
+
+there is one other possibilty that we need to assign c-map to wan interface directly
+in this way changes are follow:
+peers should enterd as wan ip address instead of tunnel
+acl must change that only peers traffic get encapsulated with ipsec not all incoming traffic on wan int
+best way to config acl is > permit Gre any any > means that encapsulate only gre packets to ipsec
+in this way gre header get into esp encapsulation and wiresharks shows no gre header 
+
+assigning profiles to tunnel must be perform on each tunnel peers DMVPN or GR 
+
+after all both of this methods are not recommended

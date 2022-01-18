@@ -1,0 +1,28 @@
+in this mode there is no need to maintaine gre tunnel first
+1)phase 1 bidirectional tunnel
+conf t
+	crypto isakamp policy ?>5
+		authenti ?
+		hash ?
+		encryp ?
+		group	?>14
+conf t
+	crypto iskamp key -pass- address ???=who can use this pass to negotiate ipsec as a new peer 
+						if it sets to 0.0.0.0 means all ip address must use this pass
+2)phase 2 transform set ipsec
+conf t
+	crypto ipsec transform-set ?? ESP/AH
+	example: crypto ipsec transform-set T-set esp-aes 192 esp-sha256-hmac   those who has hm,ac at the end are authentication types
+	-----and then we should choose ipsec operation mode-----
+		>> mode tunnel<<
+
+3)ipsec profile
+	conf t
+		crypto ipsec profile ?name
+			set transform-set -t-set name in step 2-
+4)assign profile to tunnel
+conf t
+	int tuunel 1
+		tunnel mode ipsec ipv4
+
+assigning profiles to tunnel must be perform on each tunnel peers DMVPN or GR 

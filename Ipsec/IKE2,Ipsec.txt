@@ -1,0 +1,41 @@
+IKE2 is more secure & armed with anti DOS attack and asymetric authentication(psk peer should negotiate with certificate peer).
+
+1)Keyring
+conf t
+	crypto ikev2 keyring ?name
+		peer ?name	
+			address ?ip ?mask
+				pre-shared-key ?pass
+2)ikev2 profile
+conf t
+	crypto ikev2 profile ?name
+		match fvrf ?name = only if we have fvrf + DMVPN
+		match identity remote addr ?ip = 0.0.0.0 means this profile will affect all vpn hosts
+		auth remote pre-share
+		auth local pre-share
+		keyring local ?name in step 1
+
+Step 1+2 are phase 1
+
+3)ipsec transform-set 
+conf t
+	crypto ipsec transform-set esp-aes 192 esp-sha-256-hmac
+		mode transport
+
+4)ipsec profile
+conf t
+	crypto ipsec profile ?name
+		set transform-set ?t-set name step 3
+		set ikev2 profile ?p-name in step 2
+5)Assign to tunnel
+conf t
+	int tunnel 1
+		tunnel protection ipsec profile ?p-name step 4
+6)DOS
+conf t
+	crypto ikev2 limit max-sa ? recommended to set double value of ongoing sa in order to renegotiate
+	crypto ikev2 limit cookie-challenge ?4 = perform security for half-open sessions
+	crypto ikev2 limit max-in-negotiation-sa = maximum negotiation of sa at on time
+	
+
+assigning profiles to tunnel must be perform on each tunnel peers DMVPN or GR 
