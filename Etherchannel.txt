@@ -1,0 +1,32 @@
+L2
+conf t
+int ra ???
+	channel-group 1 mode active for LACP
+		  	   desirable for PaGP
+	lacp rate fast
+	udld enable aggr
+	lacp max-bundle ?
+end
+conf t
+port-channel load-balance src-dst-ip
+or
+port-channel load-balance src-dst-mac
+
+
+L3
+conf t
+int ?
+	no swi
+	channel-proto ?
+	channelgroup ? mode ?
+int po ?
+	ip add	??? ???
+
+on routers
+conf t
+int po 1
+	ip add	??? ???
+	no shut
+int ra ???
+	channelgroup ? mode ON
+	no shut
