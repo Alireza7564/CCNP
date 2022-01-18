@@ -1,0 +1,8 @@
+--int ? > vrrp ? ip ?
+	  vrrp ? priority ?
+	  vrrp ? auth mdp keystring -pass-
+	  vrrp? track ? decrement ?
+ver.3
+--int ? > vrrp ? address-family ipv4/v6 > address -ip-
+					  priority ?
+					  track ? decrement
