@@ -1,0 +1,21 @@
+track 101 ip sla 201
+	delay up 15 down 15
+track 102 ip sla 202
+	delay up 15 down 15
+track 103 ip sla 203
+	delay up 15 down 15
+track 111 list boolean and
+object 101 not
+object 102 not
+object 103 not
+
+ip route 10.20.30.0 255.255.255.0 192.168.4.2 track 111
+ sho ip route track-table
+
+track 1 ip route 10.2.1.2/24 reachability
+track 2 ip route 10.2.2.2/24 reachability
+track 3 ip route 10.2.3.2/24 reachability
+track 4 list boolean and/or
+	object 1
+	object 2
+	object 3
